@@ -1,0 +1,309 @@
+/* 🖤 พื้นหลังและโครงสร้าง */
+body {
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(circle at top, #111, #000);
+  color: white;
+  font-family: "Prompt", "Arial", sans-serif;
+}
+
+.container {
+  padding: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 26px;
+  text-align: center;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+  color: #f1f1f1;
+}
+
+/* 💰 สรุปยอดรวม */
+.summary-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1e1e1e;
+  padding: 15px 20px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  font-weight: bold;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+  flex-wrap: wrap;
+}
+.summary-bar div { margin: 5px 0; }
+#totalIncome { color: #5ac8fa; }
+#totalExpense { color: #ff7f7f; }
+#balance { color: #9eff9e; }
+
+/* 📦 โครงคอลัมน์ */
+.grid, .grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+  align-items: stretch;
+}
+@media (max-width: 768px) {
+  .grid, .grid-2 { grid-template-columns: 1fr; }
+}
+
+/* 🧱 กล่องข้อมูล (Card) */
+.card {
+  background: linear-gradient(180deg, #1a1a1a, #0f0f0f);
+  border-radius: 18px;
+  padding: 20px 25px;
+  box-shadow: 0 2px 10px rgba(255,255,255,0.05);
+  transition: transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.card:hover { transform: translateY(-2px); }
+.card h3 {
+  margin-top: 0;
+  font-size: 18px;
+  border-bottom: 1px solid #333;
+  padding-bottom: 6px;
+  color: #ffd54f;
+}
+
+/* ✏️ ช่องกรอก */
+input {
+  width: 100%;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 8px;
+  background: #252525;
+  color: white;
+  font-size: 15px;
+  box-sizing: border-box;
+  transition: background 0.2s ease;
+}
+input:focus {
+  outline: none;
+  background: #333;
+}
+
+/* 🔘 ปุ่มทั่วไป */
+button {
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 0 4px rgba(255,255,255,0.1);
+}
+button:hover { transform: scale(1.05); opacity: 0.95; }
+
+/* ปุ่ม */
+#btn-income {
+  background: linear-gradient(90deg, #2e8b57, #3cb371);
+  width: 100%;
+  margin-top: 12px;
+  padding: 10px;
+}
+#btn-fixed {
+  background: linear-gradient(90deg, #8e44ad, #9b59b6);
+  width: 100%;
+  margin-top: 12px;
+  padding: 10px;
+}
+.clear-btn {
+  background: #3a3a3a;
+  width: 100%;
+  margin-top: 10px;
+  padding: 9px;
+  font-size: 14px;
+}
+.clear-btn:hover { background: #5a5a5a; }
+
+/* 🔙 ปุ่มกลับหน้าแรก */
+.back-btn {
+  display: block;
+  text-align: center;
+  color: #aaa;
+  margin-top: 20px;
+  font-size: 14px;
+}
+.back-btn:hover { color: #fff; }
+
+/* 📊 ส่วนค่าใช้จ่าย/รายรับเพิ่มเติม */
+.expense-row { margin-top: 18px; }
+.expense-inline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+}
+.expense-inline input[type="number"],
+.expense-inline input[type="text"] {
+  flex: 1;
+  height: 38px;
+}
+.expense-inline button {
+  background: linear-gradient(90deg, #ffb74d, #ff9800);
+  padding: 8px 14px;
+  font-size: 14px;
+  border-radius: 8px;
+  min-width: 50px;
+}
+
+/* 💰 รวมยอด */
+.daily-summary {
+  margin-top: 18px;
+  font-weight: bold;
+  text-align: right;
+  color: #ffe082;
+}
+
+/* 📜 กล่องรายการ */
+.daily-log-container {
+  position: relative;
+  margin-top: 15px;
+  background: #1c1c1e;
+  border-radius: 10px;
+  padding: 12px;
+  height: 230px;
+  box-shadow: inset 0 0 6px rgba(255,255,255,0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+.daily-log-container h4 {
+  margin: 0 0 10px 0;
+  font-size: 15px;
+  color: #ccc;
+  border-bottom: 1px solid #333;
+  padding-bottom: 4px;
+  text-align: left;
+}
+
+/* ✅ Scroll เฉพาะแนวตั้ง */
+#dailyLog, #extraLog {
+  flex: 1;
+  display: block;
+  font-size: 14px;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  transition: all 0.3s ease;
+  max-height: 100%;
+}
+
+/* ✅ เปิด Scroll เมื่อมี >7 รายการ */
+.scroll-active {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+/* 🌟 สไตล์ Scrollbar (แนวตั้งเท่านั้น) */
+#dailyLog::-webkit-scrollbar,
+#extraLog::-webkit-scrollbar {
+  width: 10px;
+  height: 0;
+}
+
+#dailyLog::-webkit-scrollbar-track,
+#extraLog::-webkit-scrollbar-track {
+  background: #111;
+  border-radius: 10px;
+}
+
+#dailyLog::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ffb74d, #ff9800);
+  border-radius: 10px;
+  border: 2px solid #111;
+}
+#dailyLog::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ffa726, #ff6f00);
+}
+
+#extraLog::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #8bc34a, #558b2f);
+  border-radius: 10px;
+  border: 2px solid #111;
+}
+#extraLog::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #9ccc65, #689f38);
+}
+
+/* 🎨 เอฟเฟกต์เงาจางด้านบน–ล่าง */
+.daily-log-container::before,
+.daily-log-container::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 12px;
+  pointer-events: none;
+  z-index: 2;
+}
+.daily-log-container::before {
+  top: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+}
+.daily-log-container::after {
+  bottom: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+}
+
+/* ✅ รายการในกล่อง */
+.log-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px dashed #333;
+  padding: 5px 0;
+}
+.log-item span {
+  color: #ddd;
+  flex: 1;
+  word-wrap: break-word;
+}
+.log-item button {
+  background: #b33a3a;
+  padding: 4px 8px;
+  font-size: 13px;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+.log-item button:hover { background: #e57373; }
+
+/* 💚 รายรับเพิ่มเติม (สีเขียวอ่อน) */
+.full:nth-child(2) h3 { color: #9cffb0; }
+/* 🧹 ปุ่มล้างข้อมูลทั้งหมด */
+.reset-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  text-align: center;
+}
+
+.reset-btn {
+  padding: 12px 28px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #ff6f00, #ff9800);
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(255, 193, 7, 0.3);
+  transition: all 0.3s ease;
+}
+
+.reset-btn:hover {
+  background: linear-gradient(90deg, #ff9800, #ffc107);
+  transform: scale(1.05);
+  box-shadow: 0 0 14px rgba(255, 193, 7, 0.5);
+}
+
+.reset-btn:active {
+  transform: scale(0.97);
+  opacity: 0.9;
+}
